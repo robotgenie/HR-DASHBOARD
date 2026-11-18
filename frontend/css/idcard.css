@@ -1,0 +1,325 @@
+/* idcard.css - electronic employee ID card, locked identity fields and the
+   profile change request workflow. Uses the tokens defined in global.css. */
+
+/* ---------------------------------------------------------------- ID card */
+.idcard-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.idcard {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1.586 / 1;          /* CR80, same proportions as the PDF */
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(21, 26, 56, .14);
+  display: flex;
+  flex-direction: column;
+}
+
+.idcard-band {
+  background: linear-gradient(100deg, var(--rg-blue), var(--rg-indigo) 52%, var(--rg-violet));
+  color: #fff;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.idcard-band img {
+  height: 30px;
+  width: auto;
+  flex: 0 0 auto;
+}
+
+.idcard-band b {
+  display: block;
+  font-size: 15px;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+}
+
+.idcard-band span {
+  display: block;
+  font-size: 8.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .92;
+}
+
+.idcard-body {
+  flex: 1 1 auto;
+  padding: 12px 14px 10px;
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  grid-template-rows: auto auto;
+  gap: 8px 12px;
+  align-content: start;
+}
+
+.idcard-photo {
+  grid-row: span 1;
+  width: 74px;
+  height: 88px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.idcard-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;              /* matches the PDF's cover-fill */
+  display: block;
+}
+
+.idcard-who h4 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: -.015em;
+}
+
+.idcard-who .role {
+  margin: 2px 0 8px;
+  font-size: 11px;
+  color: var(--rg-indigo);
+  font-weight: 600;
+}
+
+.idcard-chip {
+  display: inline-block;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--rg-indigo);
+  background: #eef1ff;
+  border: 1px solid #c9d2ff;
+  border-radius: 6px;
+  padding: 4px 9px;
+  font-variant-numeric: tabular-nums;
+}
+
+.idcard-fields {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  margin-top: 2px;
+}
+
+.idcard-fields div {
+  min-width: 0;
+}
+
+.idcard-fields dt {
+  font-size: 7.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.idcard-fields dd {
+  margin: 1px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.idcard-foot {
+  flex: 0 0 auto;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  padding: 6px 12px;
+  font-size: 8px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.35;
+}
+
+.idcard-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Pending state, shown instead of the card when the profile is incomplete */
+.idcard-pending {
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  background: var(--surface);
+}
+
+.idcard-pending ul {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.idcard-pending li {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.idcard-pending li::before {
+  content: "\25CB";
+  color: var(--warn);
+  margin-right: 8px;
+}
+
+/* ------------------------------------------------- locked identity fields */
+.locked-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.locked-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.locked-row:last-child {
+  border-bottom: 0;
+}
+
+.locked-row .lr-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.locked-row .lr-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.locked-row .lr-value {
+  font-weight: 600;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------- change request comparison */
+.value-diff {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.value-diff .vd-box {
+  min-width: 0;
+}
+
+.value-diff .vd-label {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.value-diff .vd-value {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.value-diff .vd-old .vd-value {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.value-diff .vd-new .vd-value {
+  color: var(--ok);
+}
+
+.value-diff .vd-arrow {
+  color: var(--muted);
+  font-size: 18px;
+}
+
+@media (max-width: 520px) {
+  .value-diff {
+    grid-template-columns: 1fr;
+  }
+
+  .value-diff .vd-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+
+  .idcard-body {
+    grid-template-columns: 62px 1fr;
+  }
+
+  .idcard-photo {
+    width: 62px;
+    height: 74px;
+  }
+}
+
+/* Print just the card, at real badge size */
+@media print {
+  .idcard {
+    box-shadow: none;
+    width: 85.6mm;
+    max-width: none;
+    height: 54mm;
+    aspect-ratio: auto;
+    page-break-inside: avoid;
+  }
+
+  .idcard-actions,
+  .idcard-pending {
+    display: none !important;
+  }
+}

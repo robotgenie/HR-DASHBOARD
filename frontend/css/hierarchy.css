@@ -1,0 +1,90 @@
+/* ==========================================================================
+   hierarchy.css - Admin console, organisation tree, person monitoring and
+   Excel import screens. Built only from the existing design tokens.
+   ========================================================================== */
+
+a.kpi { color: inherit; text-decoration: none; display: block; transition: box-shadow var(--t-fast), transform var(--t-fast); }
+a.kpi:hover { box-shadow: var(--sh-2); transform: translateY(-1px); text-decoration: none; }
+a.ts { color: inherit; text-decoration: none; }
+
+/* -------- reporting chain (Employee -> Manager -> HR -> Admin) -------- */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.chain li { display: flex; align-items: center; gap: 6px; font-size: var(--fs-sm); }
+.chain li + li::before { content: "\2192"; color: var(--muted); }
+.chain .lvl { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.chain b { font-weight: 600; }
+
+/* -------- organisation tree -------- */
+.org-tree { display: grid; gap: var(--s-4); }
+.org-hr { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card); box-shadow: var(--sh-1); overflow: hidden; }
+.org-hr > header {
+  display: flex; align-items: center; gap: var(--s-3); padding: 14px var(--s-5);
+  background: var(--card-alt); border-bottom: 1px solid var(--line); flex-wrap: wrap;
+}
+.org-hr > header .who { min-width: 0; flex: 1 1 220px; }
+.org-hr > header .who b { display: block; }
+.org-hr > header .stats { display: flex; gap: var(--s-3); font-size: var(--fs-xs); color: var(--muted); flex-wrap: wrap; }
+.org-hr.unassigned > header { background: var(--warn-bg); }
+.org-mgrs { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--s-3); padding: var(--s-4) var(--s-5); }
+.org-mgr { border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; background: var(--card); }
+.org-mgr .head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.org-mgr .head .who { min-width: 0; flex: 1; }
+.org-mgr ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.org-person { display: flex; align-items: center; gap: 8px; font-size: var(--fs-sm); min-width: 0; }
+.org-person .nm { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.org-person .tag { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: var(--r-pill); background: var(--neutral-bg); color: var(--neutral); }
+.org-person .tag.intern { background: var(--warn-bg); color: var(--warn); }
+.org-person .tag.manager { background: var(--info-bg); color: var(--info); }
+.org-person .tag.hr { background: #F1ECFF; color: var(--rg-indigo); }
+.org-direct { padding: 0 var(--s-5) var(--s-4); }
+.org-direct h4 { font-size: var(--fs-xs); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 0 0 8px; }
+.icon-link { background: none; border: 0; padding: 2px; color: var(--muted); cursor: pointer; border-radius: var(--r-sm); line-height: 0; }
+.icon-link:hover { color: var(--rg-indigo); background: var(--neutral-bg); }
+
+/* -------- person monitoring -------- */
+.person-hero { display: flex; align-items: center; gap: var(--s-4); flex-wrap: wrap; }
+.person-hero .who { flex: 1 1 260px; min-width: 0; }
+.person-hero h2 { margin: 0 0 4px; font-size: var(--fs-xl); }
+.person-panels { padding: var(--s-5); }
+.mini-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--s-3); margin-bottom: var(--s-4); }
+.mini-kpis div { border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; background: var(--card-alt); }
+.mini-kpis span { display: block; font-size: var(--fs-xs); color: var(--muted); font-weight: 600; }
+.mini-kpis b { font-size: var(--fs-lg); }
+
+/* -------- Excel import -------- */
+.drop-zone {
+  display: block; cursor: pointer;
+  border: 2px dashed var(--line-strong); border-radius: var(--r-lg); padding: var(--s-6) var(--s-5);
+  text-align: center; background: var(--card-alt); transition: border-color var(--t-fast), background var(--t-fast);
+}
+.drop-zone svg { display: block; margin: 0 auto 6px; color: var(--rg-indigo); }
+.drop-zone.over { border-color: var(--rg-indigo); background: var(--info-bg); }
+.drop-zone p { margin: 6px 0 0; color: var(--muted); font-size: var(--fs-sm); }
+.import-steps { display: flex; gap: var(--s-2); flex-wrap: wrap; margin-bottom: var(--s-4); list-style: none; padding: 0; }
+.import-steps li { font-size: var(--fs-xs); font-weight: 700; color: var(--muted); padding: 4px 10px; border-radius: var(--r-pill); background: var(--neutral-bg); }
+.import-steps li.on { background: var(--rg-gradient); color: #fff; }
+.row-errors { margin: 4px 0 0; padding-left: 16px; font-size: var(--fs-xs); color: var(--bad); }
+.row-changes { margin: 4px 0 0; padding: 0; list-style: none; font-size: var(--fs-xs); }
+.row-changes li { color: var(--text-2); }
+.row-changes .old { text-decoration: line-through; color: var(--muted); }
+.row-changes .new { font-weight: 700; color: var(--ink); }
+.row-changes .hier { color: var(--warn); font-weight: 700; }
+tr.row-invalid td { background: var(--bad-bg); }
+tr.row-update td { background: var(--info-bg); }
+.cred-table td code { font-size: var(--fs-sm); background: var(--neutral-bg); padding: 2px 6px; border-radius: var(--r-sm); }
+.export-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: var(--s-3); }
+.export-grid label.opt {
+  border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: flex; gap: 10px; align-items: flex-start;
+  cursor: pointer; background: var(--card);
+}
+.export-grid label.opt:has(input:checked) { border-color: var(--rg-indigo); box-shadow: 0 0 0 3px rgba(110, 92, 255, .12); }
+.export-grid label.opt small { display: block; color: var(--muted); font-weight: 500; }
+
+@media (max-width: 720px) {
+  .org-mgrs { grid-template-columns: 1fr; padding: var(--s-3); }
+  .org-hr > header { padding: 12px var(--s-3); }
+  .org-direct { padding: 0 var(--s-3) var(--s-3); }
+  .person-panels { padding: var(--s-3); }
+}
+.data .badge { white-space: nowrap; }
+.data td .identity .name { white-space: nowrap; }

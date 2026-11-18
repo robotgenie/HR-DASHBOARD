@@ -1,0 +1,83 @@
+/* Dashboards: KPI strip, charts, pending queue, meeting timeline. */
+
+/* KPIs live in one bordered strip divided by hairlines - not nine floating cards */
+.kpi-strip {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--sh-1); overflow: hidden; margin-bottom: var(--s-5);
+}
+.kpi {
+  padding: var(--s-4) var(--s-5);
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.kpi:last-child { border-right: 0; }
+.kpi .kpi-label { font-size: var(--fs-xs); color: var(--muted); font-weight: 600; }
+.kpi .kpi-value { font-size: var(--fs-xl); font-weight: 700; line-height: 1.25; margin-top: 2px; }
+.kpi .kpi-foot { font-size: var(--fs-xs); color: var(--muted); }
+.kpi .kpi-foot.up { color: var(--ok); }
+.kpi .kpi-foot.warn { color: var(--warn); }
+.kpi.accent { background: linear-gradient(160deg, rgba(84, 127, 255, .08), rgba(160, 85, 255, .06)); }
+.kpi.accent .kpi-value { color: var(--ink); }
+
+/* Employee dashboard hero: greeting + the document ring as the one bold element */
+.hero {
+  display: flex; align-items: center; gap: var(--s-6); flex-wrap: wrap;
+  background: var(--ink); color: var(--on-dark); border-radius: var(--r-lg);
+  padding: var(--s-5) var(--s-6); margin-bottom: var(--s-5); position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0 -40% 0 55%;
+  background: var(--rg-gradient); opacity: .18;
+  clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+}
+.hero > * { position: relative; z-index: 1; }
+.hero h1 { color: #fff; font-size: var(--fs-2xl); }
+.hero p { color: var(--on-dark-muted); margin: 6px 0 0; }
+.hero .hero-ring { margin-left: auto; text-align: center; }
+.hero .ring { --ring-bg: var(--ink); }
+.hero .ring::after { background: var(--ink); }
+.hero .ring .cap { color: var(--on-dark-muted); }
+.hero .ring .pct { color: #fff; }
+.hero-stats { display: flex; gap: var(--s-5); flex-wrap: wrap; margin-top: var(--s-4); }
+.hero-stats div b { display: block; color: #fff; font-size: var(--fs-md); }
+.hero-stats div span { font-size: var(--fs-xs); color: var(--on-dark-muted); }
+
+.chart-wrap { position: relative; height: 260px; }
+.chart-wrap.short { height: 210px; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-3); }
+.chart-legend span { display: flex; align-items: center; gap: 6px; font-size: var(--fs-xs); color: var(--text-2); }
+.chart-legend i { width: 9px; height: 9px; border-radius: 3px; }
+
+/* Pending actions queue */
+.queue { list-style: none; margin: 0; padding: 0; }
+.queue li { border-bottom: 1px solid var(--line); }
+.queue li:last-child { border-bottom: 0; }
+.queue a {
+  display: flex; align-items: center; gap: var(--s-3); padding: 13px var(--s-5);
+  color: var(--text); font-weight: 600;
+}
+.queue a:hover { background: var(--card-alt); text-decoration: none; }
+.queue .q-count {
+  min-width: 32px; height: 32px; padding: 0 8px; border-radius: var(--r-sm);
+  display: grid; place-items: center; font-variant-numeric: tabular-nums;
+  background: var(--info-bg); color: var(--info); font-size: var(--fs-sm);
+}
+.queue .q-count.warn { background: var(--warn-bg); color: var(--warn); }
+.queue .q-count.bad { background: var(--bad-bg); color: var(--bad); }
+.queue .q-count.zero { background: var(--neutral-bg); color: var(--neutral); }
+.queue .q-arrow { margin-left: auto; color: var(--muted); }
+
+/* Recent list rows (employees, notifications) */
+.mini-list { list-style: none; margin: 0; padding: 0; }
+.mini-list li { display: flex; align-items: center; gap: var(--s-3); padding: 11px var(--s-5); border-bottom: 1px solid var(--line); }
+.mini-list li:last-child { border-bottom: 0; }
+.mini-list .when { margin-left: auto; font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
+
+/* Latest salary card */
+.pay-summary { display: flex; align-items: center; gap: var(--s-5); flex-wrap: wrap; }
+.pay-summary .amount { font-size: var(--fs-2xl); font-weight: 700; font-variant-numeric: tabular-nums; }
+.pay-summary .period { color: var(--muted); font-size: var(--fs-sm); }
+.pay-breakdown { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3); margin-top: var(--s-4); }
+.pay-breakdown div { background: var(--card-alt); border: 1px solid var(--line); border-radius: var(--r); padding: 10px var(--s-3); }
+.pay-breakdown span { display: block; font-size: var(--fs-xs); color: var(--muted); }
+.pay-breakdown b { font-variant-numeric: tabular-nums; }

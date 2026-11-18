@@ -1,0 +1,72 @@
+/* Data tables, toolbars, pagination. Tables become stacked cards on small screens. */
+
+.toolbar {
+  display: flex; gap: var(--s-3); align-items: center; flex-wrap: wrap;
+  padding: var(--s-4) var(--s-5); border-bottom: 1px solid var(--line);
+}
+.toolbar .search { position: relative; flex: 1 1 260px; max-width: 340px; }
+.toolbar .search svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.toolbar .search input { padding-left: 36px; }
+.toolbar .filters { display: flex; gap: var(--s-2); flex-wrap: wrap; margin-left: auto; align-items: center; }
+/* Filter controls sit side by side and wrap, instead of each taking a full row. */
+.toolbar .filters > select, .toolbar .filters > input { width: auto; flex: 0 1 190px; min-width: 0; }
+.toolbar .filters > input[type="search"] { flex: 1 1 220px; }
+.toolbar select, .toolbar input[type="date"] { min-width: 132px; }
+
+.tabs { display: flex; gap: 2px; flex-wrap: wrap; padding: 0 var(--s-5); border-bottom: 1px solid var(--line); }
+.tab {
+  border: 0; background: none; cursor: pointer; font: 600 var(--fs-sm)/1 var(--font);
+  padding: 14px 12px; color: var(--muted); border-bottom: 2px solid transparent;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--ink); border-bottom-color: var(--rg-indigo); }
+.tab .n { font-size: 11px; color: var(--muted); margin-left: 5px; }
+
+.table-scroll { overflow-x: auto; }
+table.data { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+table.data th {
+  text-align: left; font-size: var(--fs-xs); font-weight: 700; color: var(--muted);
+  padding: 11px var(--s-4); border-bottom: 1px solid var(--line);
+  background: var(--card-alt); white-space: nowrap; position: sticky; top: 0; z-index: 1;
+}
+table.data th.sortable { cursor: pointer; user-select: none; }
+table.data th.sortable:hover { color: var(--text); }
+table.data th .arrow { opacity: .35; margin-left: 4px; }
+table.data th.sorted .arrow { opacity: 1; color: var(--rg-indigo); }
+table.data td { padding: 11px var(--s-4); border-bottom: 1px solid var(--line); vertical-align: middle; }
+table.data tbody tr:hover { background: var(--card-alt); }
+table.data tbody tr:last-child td { border-bottom: 0; }
+table.data td.actions { text-align: right; white-space: nowrap; }
+table.data td.actions .btn { margin-left: 4px; }
+table.data.compact td, table.data.compact th { padding: 8px var(--s-3); }
+
+.pager {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+  padding: var(--s-3) var(--s-5); border-top: 1px solid var(--line); flex-wrap: wrap;
+}
+.pager .info { font-size: var(--fs-xs); color: var(--muted); }
+.pager .pages { display: flex; gap: 4px; align-items: center; }
+.pager .pages button {
+  min-width: 34px; height: 34px; padding: 0 8px; border-radius: var(--r-sm);
+  border: 1px solid var(--line); background: var(--card); color: var(--text-2);
+  font: 600 var(--fs-sm)/1 var(--font); cursor: pointer;
+}
+.pager .pages button:hover:not([disabled]) { background: var(--card-alt); }
+.pager .pages button.current { background: var(--ink); border-color: var(--ink); color: #fff; }
+.pager .pages button[disabled] { opacity: .45; cursor: not-allowed; }
+
+@media (max-width: 860px) {
+  table.data thead { display: none; }
+  table.data, table.data tbody, table.data tr, table.data td { display: block; width: 100%; }
+  table.data tr {
+    border: 1px solid var(--line); border-radius: var(--r); margin-bottom: var(--s-3);
+    padding: var(--s-2) var(--s-3); background: var(--card);
+  }
+  table.data td { border: 0; padding: 6px 0; display: flex; gap: var(--s-3); align-items: center; }
+  table.data td::before {
+    content: attr(data-label); flex: 0 0 116px; color: var(--muted);
+    font-size: var(--fs-xs); font-weight: 600;
+  }
+  table.data td.actions { justify-content: flex-start; padding-top: var(--s-3); }
+  table.data td.actions::before { content: ""; flex: 0 0 116px; }
+}

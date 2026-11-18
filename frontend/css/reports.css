@@ -1,0 +1,84 @@
+/* Daily work report form + HR report reader. */
+
+.report-form .rf-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); }
+.report-form textarea.task { min-height: 128px; }
+.report-meta {
+  display: flex; gap: var(--s-4); flex-wrap: wrap; align-items: center;
+  padding: var(--s-3) var(--s-4); background: var(--card-alt);
+  border: 1px solid var(--line); border-radius: var(--r); margin-bottom: var(--s-4);
+}
+.report-status-line { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+
+.report-read section { margin-bottom: var(--s-5); }
+.report-read h4 { font-size: var(--fs-xs); color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+.report-read .body {
+  white-space: pre-wrap; background: var(--card-alt); border: 1px solid var(--line);
+  border-radius: var(--r); padding: var(--s-3) var(--s-4); font-size: var(--fs-sm);
+}
+.report-read .body:empty::after { content: "Nothing recorded."; color: var(--muted); font-style: italic; }
+
+.attach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: var(--s-3); }
+.attach-tile {
+  border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card);
+  display: flex; flex-direction: column;
+}
+.attach-tile .a-thumb {
+  height: 92px; background: var(--neutral-bg); display: grid; place-items: center;
+  color: var(--text-2); font-size: var(--fs-xs); font-weight: 700;
+}
+.attach-tile .a-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.attach-tile .a-foot { padding: 8px 10px; font-size: var(--fs-xs); }
+.attach-tile .a-foot b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.attach-tile .a-foot span { color: var(--muted); }
+.attach-tile .btn { margin: 0 10px 10px; }
+
+/* Logout gate shown before an employee signs out */
+.logout-gate { text-align: center; }
+.logout-gate .lg-icon {
+  width: 52px; height: 52px; margin: 0 auto var(--s-4); border-radius: var(--r);
+  display: grid; place-items: center; background: var(--warn-bg); color: var(--warn);
+}
+.logout-gate .lg-actions { display: flex; gap: var(--s-2); justify-content: center; flex-wrap: wrap; margin-top: var(--s-5); }
+
+@media (max-width: 860px) { .report-form .rf-grid { grid-template-columns: 1fr; } }
+
+/* Logout gate: per-report requirement lines */
+.logout-gate .lg-list { list-style: none; margin: 10px 0 12px; padding: 0; text-align: left; }
+.logout-gate .lg-line { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid var(--line, #e4e7ec); }
+.logout-gate .lg-line small { display: block; font-weight: 400; margin-top: 2px; }
+
+/* Report cards when approved leave makes a report not applicable */
+.report-card.is-na { background: var(--card-alt); }
+.report-card.is-na .card-head h3 { color: var(--muted); }
+.report-card .na-reason { display: flex; gap: 8px; align-items: flex-start; color: var(--text-2); font-size: var(--fs-sm); margin: 0 0 var(--s-3); }
+.report-card button[disabled] { cursor: not-allowed; opacity: .6; }
+.leave-banner .card-body { gap: var(--s-3); align-items: center; }
+
+/* ---------------- Monthly report (employee page + HR employee profile) ---------------- */
+.mr-head .card-body { display: flex; align-items: center; gap: var(--s-4); flex-wrap: wrap; justify-content: space-between; }
+.mr-period { font-size: var(--fs-lg, 18px); font-weight: 700; color: var(--ink); }
+.mr-kpis { margin-top: var(--s-4); margin-bottom: 0; }
+.mr-kv { grid-template-columns: minmax(0, 1fr) auto; }
+.mr-kv dd { text-align: right; font-variant-numeric: tabular-nums; }
+.mr-days td { white-space: nowrap; padding: 9px var(--s-3); }
+.mr-days tr.row-bad td:first-child { box-shadow: inset 3px 0 0 var(--bad); }
+.mr-select { min-width: 200px; }
+.text-bad { color: var(--bad); font-weight: 600; }
+.text-ok { color: var(--ok); font-weight: 600; }
+.mr-months { list-style: none; margin: 0; padding: 0; }
+.mr-months li { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); flex-wrap: wrap;
+  padding: 11px var(--s-5); border-bottom: 1px solid var(--line); }
+.mr-months li:last-child { border-bottom: 0; }
+.mr-months li.active { background: var(--info-bg); }
+.mr-month-name { display: inline-flex; align-items: center; gap: 8px; }
+.mr-month-actions { display: inline-flex; gap: var(--s-2); }
+.mr-view { margin-top: var(--s-4); scroll-margin-top: 80px; }
+@media (max-width: 760px) {
+  .mr-kv { grid-template-columns: minmax(0, 1fr) auto; gap: 4px var(--s-3); }
+  .mr-kv dd { margin-bottom: 0; }
+  .mr-select { width: 100%; }
+  .mr-days td { white-space: normal; }
+  .mr-months li { padding: 11px var(--s-4); }
+}
+.logout-gate .lg-line .badge { white-space: nowrap; flex: 0 0 auto; }

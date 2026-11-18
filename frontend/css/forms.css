@@ -1,0 +1,100 @@
+/* Inputs, selects, textareas, file drops, validation. */
+
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field > label { font-size: var(--fs-sm); font-weight: 600; color: var(--text-2); }
+.field > label .req { color: var(--bad); }
+.field .help { font-size: var(--fs-xs); color: var(--muted); }
+.field .err { font-size: var(--fs-xs); color: var(--bad); display: none; }
+.field.invalid .err { display: block; }
+.field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--bad); }
+
+input[type="text"], input[type="email"], input[type="password"], input[type="number"],
+input[type="date"], input[type="time"], input[type="url"], input[type="tel"], input[type="search"],
+input[type="month"], select, textarea {
+  width: 100%; font: 500 var(--fs-base)/1.45 var(--font); color: var(--text);
+  background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--r);
+  padding: 10px 12px; transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  appearance: none;
+}
+input:hover, select:hover, textarea:hover { border-color: var(--muted); }
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--rg-indigo); box-shadow: 0 0 0 3px rgba(110, 92, 255, .14);
+}
+input[readonly], input:disabled, select:disabled, textarea:disabled {
+  background: var(--neutral-bg); color: var(--text-2); cursor: not-allowed; border-color: var(--line);
+}
+input::placeholder, textarea::placeholder { color: #9AA2C6; }
+textarea { min-height: 96px; resize: vertical; }
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B739B' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+}
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); }
+.form-grid .full { grid-column: 1 / -1; }
+.form-section { margin-bottom: var(--s-5); }
+.form-section > h4 {
+  font-size: var(--fs-xs); color: var(--muted); font-weight: 700;
+  padding-bottom: 8px; margin-bottom: var(--s-4); border-bottom: 1px solid var(--line);
+}
+.switch { display: flex; align-items: center; gap: 11px; cursor: pointer; }
+.switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.switch .track {
+  width: 42px; height: 24px; border-radius: var(--r-pill); background: var(--line-strong);
+  position: relative; transition: background var(--t-fast); flex: 0 0 auto;
+}
+.switch .track::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px;
+  border-radius: 50%; background: #fff; box-shadow: var(--sh-1); transition: transform var(--t);
+}
+.switch input:checked + .track { background: var(--ok); }
+.switch input:checked + .track::after { transform: translateX(18px); }
+.switch input:focus-visible + .track { box-shadow: 0 0 0 3px rgba(110, 92, 255, .2); }
+.switch .switch-text b { display: block; font-size: var(--fs-sm); }
+.switch .switch-text span { font-size: var(--fs-xs); color: var(--muted); }
+
+/* File drop zone */
+.drop {
+  border: 1.5px dashed var(--line-strong); border-radius: var(--r);
+  padding: var(--s-5); text-align: center; background: var(--card-alt);
+  cursor: pointer; transition: border-color var(--t-fast), background var(--t-fast);
+}
+.drop:hover, .drop.over { border-color: var(--rg-indigo); background: rgba(110, 92, 255, .05); }
+.drop input[type="file"] { display: none; }
+.drop .drop-icon { color: var(--rg-indigo); margin-bottom: 6px; }
+.drop b { display: block; font-size: var(--fs-sm); }
+.drop span { font-size: var(--fs-xs); color: var(--muted); }
+
+.file-list { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.file-item {
+  display: flex; align-items: center; gap: var(--s-3);
+  border: 1px solid var(--line); border-radius: var(--r); padding: 8px 11px; background: var(--card);
+}
+.file-item .f-thumb {
+  width: 34px; height: 34px; border-radius: var(--r-sm); overflow: hidden; flex: 0 0 auto;
+  background: var(--neutral-bg); display: grid; place-items: center; color: var(--text-2); font-size: 10px; font-weight: 700;
+}
+.file-item .f-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.file-item .f-meta { min-width: 0; flex: 1 1 auto; }
+.file-item .f-meta b { display: block; font-size: var(--fs-sm); font-weight: 600; }
+.file-item .f-meta span { font-size: var(--fs-xs); color: var(--muted); }
+.file-item .bar { width: 100%; margin-top: 5px; }
+
+.component-row { display: grid; grid-template-columns: 1fr 150px 38px; gap: var(--s-2); align-items: end; }
+.component-row .rm { color: var(--bad); }
+.totals-box { background: var(--card-alt); border: 1px solid var(--line); border-radius: var(--r); padding: var(--s-4); }
+.totals-box .line { display: flex; justify-content: space-between; padding: 5px 0; font-size: var(--fs-sm); }
+.totals-box .line.net { border-top: 1px solid var(--line-strong); margin-top: 6px; padding-top: 10px; font-size: var(--fs-md); font-weight: 700; }
+.totals-box .words { font-size: var(--fs-xs); color: var(--muted); margin-top: 6px; font-style: italic; }
+
+@media (max-width: 700px) { .form-grid { grid-template-columns: 1fr; } }
+
+/* Leave period picker (Full Day / Morning Half / Afternoon Half) */
+.period-pick { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-2); }
+.period-opt { display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--line);
+  border-radius: var(--r); cursor: pointer; background: var(--card); }
+.period-opt:has(input:checked) { border-color: var(--rg-indigo); background: var(--info-bg); }
+.period-opt.disabled { opacity: .45; cursor: not-allowed; }
+.period-opt input { margin-top: 3px; }
+.period-opt b { display: block; font-size: var(--fs-sm); }
+.period-opt small { display: block; color: var(--muted); font-size: var(--fs-xs); line-height: 1.35; }
+@media (max-width: 640px) { .period-pick { grid-template-columns: 1fr; } }

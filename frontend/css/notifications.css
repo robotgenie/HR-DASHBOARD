@@ -1,0 +1,40 @@
+/* Notification centre + dropdown panel. */
+
+.notif-list { list-style: none; margin: 0; padding: 0; }
+.notif {
+  display: flex; gap: var(--s-3); padding: var(--s-4) var(--s-5);
+  border-bottom: 1px solid var(--line); position: relative; background: var(--card);
+}
+.notif:last-child { border-bottom: 0; }
+.notif.unread { background: rgba(84, 127, 255, .05); }
+.notif.unread::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--rg-indigo); }
+.notif .n-icon {
+  width: 34px; height: 34px; border-radius: var(--r); flex: 0 0 auto;
+  display: grid; place-items: center; background: var(--info-bg); color: var(--info);
+}
+.notif .n-icon.ok { background: var(--ok-bg); color: var(--ok); }
+.notif .n-icon.warn { background: var(--warn-bg); color: var(--warn); }
+.notif .n-icon.bad { background: var(--bad-bg); color: var(--bad); }
+.notif .n-main { flex: 1 1 auto; min-width: 0; }
+.notif .n-main b { display: block; font-size: var(--fs-sm); }
+.notif .n-main p { margin: 2px 0 0; font-size: var(--fs-sm); color: var(--text-2); }
+.notif .n-when { font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
+.notif .n-mark { border: 0; background: none; color: var(--info); font-size: var(--fs-xs); font-weight: 700; cursor: pointer; }
+
+.notif-panel {
+  position: absolute; top: calc(100% + 8px); right: 0; width: min(380px, calc(100vw - 32px));
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--sh-3); z-index: 50; overflow: hidden;
+}
+.notif-panel .np-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--s-3) var(--s-4); border-bottom: 1px solid var(--line);
+}
+.notif-panel .np-body { max-height: 60vh; overflow-y: auto; }
+.notif-panel .notif { padding: var(--s-3) var(--s-4); }
+.notif-panel .np-foot { padding: 10px var(--s-4); border-top: 1px solid var(--line); text-align: center; background: var(--card-alt); }
+.notif-anchor { position: relative; }
+
+.n-mark.n-del { color: var(--bad, #b42318); display: inline-flex; align-items: center; gap: 4px; }
+.n-mark.n-del:hover { text-decoration: underline; }
+.n-mark.n-del[disabled] { opacity: .5; }

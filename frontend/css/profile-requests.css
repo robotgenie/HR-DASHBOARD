@@ -1,0 +1,147 @@
+/* HR Profile Change Requests - targeted UI polish only.
+   Approval/rejection behavior remains in profile-requests.js. */
+
+.profile-requests-page {
+  width: 100%;
+}
+
+.pr-page-head {
+  margin-bottom: 18px;
+}
+
+.pr-tabs {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  padding: 0 8px;
+}
+
+.pr-request-card {
+  overflow: hidden;
+  border-radius: 0 0 12px 12px;
+}
+
+.pr-toolbar {
+  align-items: flex-end;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--card);
+}
+
+.pr-search {
+  flex: 1 1 360px !important;
+  max-width: 520px !important;
+}
+
+.pr-search input {
+  width: 100%;
+  min-height: 42px;
+}
+
+.pr-filters {
+  align-items: flex-end;
+  gap: 10px;
+  margin-left: auto !important;
+}
+
+.pr-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 190px;
+}
+
+.pr-filter-field label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.pr-filter-field select {
+  width: 100%;
+  min-height: 42px;
+}
+
+.pr-clear {
+  min-height: 42px;
+  white-space: nowrap;
+}
+
+.pr-table-wrap {
+  width: 100%;
+}
+
+.pr-table-wrap .table-scroll {
+  min-height: 120px;
+}
+
+.pr-table-wrap table.data {
+  min-width: 850px;
+}
+
+.pr-table-wrap table.data th,
+.pr-table-wrap table.data td {
+  vertical-align: middle;
+}
+
+.pr-table-wrap table.data th:last-child,
+.pr-table-wrap table.data td:last-child {
+  width: 110px;
+}
+
+.pr-table-wrap table.data td.right {
+  text-align: right;
+}
+
+.pr-table-wrap .cell-id {
+  min-width: 170px;
+}
+
+.pr-pager {
+  padding: 14px 20px 18px;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 900px) {
+  .pr-toolbar {
+    align-items: stretch;
+  }
+  .pr-search {
+    flex-basis: 100% !important;
+    max-width: none !important;
+  }
+  .pr-filters {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+  .pr-filter-field {
+    flex: 1 1 220px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pr-tabs {
+    border-radius: 10px 10px 0 0;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .pr-tabs .tab {
+    flex: 0 0 auto;
+  }
+  .pr-toolbar {
+    padding: 14px;
+    gap: 12px;
+  }
+  .pr-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pr-filter-field,
+  .pr-clear {
+    width: 100%;
+  }
+  .pr-pager {
+    padding: 12px 14px 16px;
+  }
+}

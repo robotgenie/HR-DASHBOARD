@@ -1,0 +1,84 @@
+/* Employee document checklist + HR verification queue. */
+
+.doc-summary { display: flex; align-items: center; gap: var(--s-5); flex-wrap: wrap; }
+.doc-summary .counts { display: flex; gap: var(--s-5); flex-wrap: wrap; }
+.doc-summary .counts div b { display: block; font-size: var(--fs-lg); font-variant-numeric: tabular-nums; }
+.doc-summary .counts div span { font-size: var(--fs-xs); color: var(--muted); }
+
+.doc-list { display: grid; gap: var(--s-3); }
+.doc-card {
+  display: flex; align-items: center; gap: var(--s-4);
+  border: 1px solid var(--line); border-left: 3px solid var(--line-strong);
+  border-radius: var(--r); padding: var(--s-4); background: var(--card);
+}
+.doc-card.is-verified { border-left-color: var(--ok); }
+.doc-card.is-pending { border-left-color: var(--warn); }
+.doc-card.is-rejected, .doc-card.is-reupload { border-left-color: var(--bad); }
+.doc-card.is-missing { border-left-color: var(--line-strong); background: var(--card-alt); }
+.doc-card .d-icon {
+  width: 40px; height: 40px; border-radius: var(--r); flex: 0 0 auto;
+  display: grid; place-items: center; background: var(--neutral-bg); color: var(--text-2);
+}
+.doc-card.is-verified .d-icon { background: var(--ok-bg); color: var(--ok); }
+.doc-card.is-pending .d-icon { background: var(--warn-bg); color: var(--warn); }
+.doc-card.is-rejected .d-icon, .doc-card.is-reupload .d-icon { background: var(--bad-bg); color: var(--bad); }
+.doc-card .d-main { flex: 1 1 auto; min-width: 0; }
+.doc-card .d-main b { display: block; }
+.doc-card .d-main .d-meta { font-size: var(--fs-xs); color: var(--muted); }
+.doc-card .d-remark {
+  margin-top: 6px; font-size: var(--fs-xs); color: var(--bad);
+  background: var(--bad-bg); border-radius: var(--r-sm); padding: 6px 9px;
+}
+.doc-card .d-actions { display: flex; gap: var(--s-2); flex-wrap: wrap; justify-content: flex-end; }
+
+.version-list { list-style: none; margin: 0; padding: 0; }
+.version-list li {
+  display: flex; gap: var(--s-3); align-items: center; padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.version-list li:last-child { border-bottom: 0; }
+.version-list .v-no {
+  width: 30px; height: 30px; border-radius: 50%; flex: 0 0 auto;
+  display: grid; place-items: center; background: var(--neutral-bg);
+  font-size: var(--fs-xs); font-weight: 700; color: var(--text-2);
+}
+.version-list .v-no.current { background: var(--ink); color: #fff; }
+.version-list .v-main { min-width: 0; flex: 1 1 auto; }
+.version-list .v-main b { font-size: var(--fs-sm); }
+.version-list .v-main span { display: block; font-size: var(--fs-xs); color: var(--muted); }
+
+.preview-frame {
+  width: 100%; height: 62vh; border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--neutral-bg);
+}
+.preview-img { max-width: 100%; max-height: 62vh; display: block; margin: 0 auto; border-radius: var(--r); }
+
+@media (max-width: 700px) {
+  .doc-card { flex-wrap: wrap; }
+  .doc-card .d-actions { width: 100%; justify-content: flex-start; }
+}
+
+/* Bank Details section (inside the Documents page) */
+.bank-card { border-left: 3px solid var(--line-strong); }
+.bank-card.is-verified { border-left-color: var(--ok); }
+.bank-card.is-pending { border-left-color: var(--warn); }
+.bank-card.is-rejected { border-left-color: var(--bad); }
+.bank-card .card-head h3 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.bank-card .mandatory-tag { font-size: 10px; letter-spacing: .06em; font-weight: 800; }
+.bank-card .bank-block { padding: var(--s-3) var(--s-4); border: 1px solid var(--line); border-radius: var(--r); background: var(--card-alt); margin-bottom: var(--s-3); }
+.bank-card .d-remark {
+  margin: 0 0 var(--s-4); font-size: var(--fs-xs); color: var(--bad);
+  background: var(--bad-bg); border-radius: var(--r-sm); padding: 8px 10px;
+}
+.bank-card .mt-0 { margin-top: 0; }
+.bank-form input.upper { text-transform: uppercase; }
+.bank-kv { grid-template-columns: 170px 1fr; }
+.bank-kv dd { font-variant-numeric: tabular-nums; word-break: break-all; }
+.bank-confirm { align-items: flex-start; gap: 10px; cursor: pointer; font-weight: 600; }
+.bank-confirm input { width: 18px; height: 18px; margin-top: 2px; flex: 0 0 auto; accent-color: var(--rg-indigo); }
+@media (max-width: 640px) {
+  .bank-kv { grid-template-columns: 1fr; gap: 2px; }
+  .bank-kv dd { margin-bottom: 8px; }
+}
+.bank-form input.upper::placeholder { text-transform: none; }
+@media (min-width: 761px) { .toolbar .filters:has(#f-bank:not(.hidden)) { flex-shrink: 0; } }

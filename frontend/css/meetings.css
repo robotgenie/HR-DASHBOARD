@@ -1,0 +1,46 @@
+/* Department meeting timeline. */
+
+.timeline { position: relative; padding-left: 74px; }
+.timeline::before {
+  content: ""; position: absolute; left: 64px; top: 8px; bottom: 8px; width: 2px; background: var(--line);
+}
+.tl-item { position: relative; margin-bottom: var(--s-4); }
+.tl-item .tl-time {
+  position: absolute; left: -74px; top: 12px; width: 58px; text-align: right;
+  font-size: var(--fs-xs); font-weight: 700; color: var(--text-2); font-variant-numeric: tabular-nums;
+}
+.tl-item::before {
+  content: ""; position: absolute; left: -12px; top: 17px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--card); border: 2px solid var(--rg-indigo); z-index: 1;
+}
+.tl-item.is-cancelled::before { border-color: var(--bad); }
+.tl-item.is-done::before { border-color: var(--line-strong); }
+.tl-card {
+  border: 1px solid var(--line); border-radius: var(--r); background: var(--card);
+  padding: var(--s-4); display: flex; gap: var(--s-4); align-items: flex-start; flex-wrap: wrap;
+}
+.tl-card .tl-main { flex: 1 1 260px; min-width: 0; }
+.tl-card h4 { font-size: var(--fs-base); }
+.tl-card .tl-dept { font-size: var(--fs-xs); color: var(--rg-indigo); font-weight: 700; }
+.tl-card .tl-agenda { color: var(--text-2); font-size: var(--fs-sm); margin-top: 6px; }
+.tl-card .tl-when { font-size: var(--fs-xs); color: var(--muted); margin-top: 6px; }
+.tl-card .tl-actions { display: flex; gap: var(--s-2); flex-wrap: wrap; align-items: center; }
+.tl-item.is-cancelled .tl-card { background: var(--card-alt); }
+.tl-item.is-cancelled h4 { text-decoration: line-through; color: var(--muted); }
+
+.meet-btn { background: var(--rg-gradient); border: none; color: #fff; }
+.meet-btn:hover { filter: brightness(1.06); }
+
+.day-head {
+  display: flex; align-items: center; gap: var(--s-3); margin: var(--s-5) 0 var(--s-3);
+  font-size: var(--fs-sm); font-weight: 700; color: var(--text-2);
+}
+.day-head .rule { flex: 1 1 auto; height: 1px; background: var(--line); }
+.day-head .today-chip { background: var(--info-bg); color: var(--info); }
+
+@media (max-width: 700px) {
+  .timeline { padding-left: 0; }
+  .timeline::before { display: none; }
+  .tl-item::before { display: none; }
+  .tl-item .tl-time { position: static; width: auto; text-align: left; margin-bottom: 4px; }
+}
